@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>LOGIN PAGE</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-$END$
+<header>
+    <nav class="nav-bar">
+        <ul>
+            <li>
+                <a href="#" class="nav-button">Strona Główna</a>
+            </li>
+            <li>
+                <a href="#" class="nav-button">Kategorie</a>
+            </li>
+            <li>
+                <a href="#" class="nav-button">Najpopularniejsze</a>
+            </li>
+            <li>
+                <a href="#" class="nav-button">Nowości</a>
+            </li>
+            <li>
+                <div class="search-bar">
+                    <form>
+                        <input type="text" placeholder="search books">
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <div class="logo">
+        <img class="image" src="../img/logo.svg">
+    </div>
+    <div class="login-container">
+        <form class="login-form">
+            ZALOGUJ
+            <input name="email" type="text" placeholder="email@email.com">
+            <input type="password" name="password" placeholder="password">
+            <button class = "btn-login">OK</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
