@@ -8,12 +8,12 @@
 body {
     margin: 0;
     overflow: hidden;
+    background: linear-gradient(247.1deg, #2492F3 0%, #826EC6 100%);
 }
 
 .container {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(247.1deg, #2492F3 0%, #826EC6 100%);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -108,7 +108,6 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1em;
-    background: linear-gradient(247.1deg, #2492F3 0%, #826EC6 100%);
 }
 .navbar-left{
     width: 50%;
@@ -215,4 +214,9 @@ body {
     color:white;
     flex-wrap:nowrap;
     justify-content: center;
+}
+
+
+.base-container{
+
 }
