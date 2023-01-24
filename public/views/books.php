@@ -39,11 +39,10 @@
     <p id="category">Kategoria : Fantasy</p>
     <section class="book-section">
         <div>
-            <img src="public/uploads/<?=$book->getImage()?>">
+            <img src="public/uploads/book.jpg">
             <div>
-                <h2><?=$book->getTitle()?></h2>
-                <p><?=$book->getDescription()?></p>
-
+                <h2>title</h2>
+                <p>desc</p>
             </div>
         </div>
         <div>
