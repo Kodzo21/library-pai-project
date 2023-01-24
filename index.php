@@ -8,5 +8,6 @@ $path=parse_url($path,PHP_URL_PATH);
 Routing::get('','DefaultController');
 Routing::get('books','DefaultController');
 Routing::post('login','SecurityController');
+Routing::post('addBook','BookController');
 
 Routing::run($path);
