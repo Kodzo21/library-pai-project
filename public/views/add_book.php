@@ -49,6 +49,8 @@
                 </div>
                 <input name="title" type="text" placeholder="title">
                 <textarea name="description" rows="5" placeholder="description"></textarea>
+                <input name="isbn" type="text" placeholder="isbn">
+                <input name ="free_books_number" type="number" placeholder="Books number">
                 <input type="file" name="file">
                 <button class="menu-button" type="submit">Send</button>
             </form>
