@@ -27,9 +27,9 @@ class BookController extends AppController
 
             $book = new Book($_POST['title'],$_POST['isbn'],$_POST['free_books_number'],$_POST['description'],$_FILES['file']['name']);
             $this->bookRepository->addBook($book);
-            return $this->render('books',['messages'=>$this->messages,'book'=>$book]);
+            return $this->render('books',['messages'=>$this->messages,'books'=>$this->bookRepository->getBooks()]);
         }
-        $this->render('add_book',['messages'=>$this->messages]);
+        return $this->render('add_book',['messages'=>$this->messages]);
     }
 
     private function validate(array $file):bool
@@ -43,6 +43,11 @@ class BookController extends AppController
             return false;
         }
         return true;
+    }
+
+    public function books(){
+        $books = $this->bookRepository->getBooks();
+        $this->render('books',['books' => $books]);
     }
 
 

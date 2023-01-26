@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Library</title>
+    <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
-    <link rel="stylesheet" type="text/css" href="public/css/books.css">
 </head>
 <body>
 <header>
@@ -34,28 +33,28 @@
         </ul>
     </nav>
 </header>
-<div class="base-container">
-<main>
-    <p id="category">Kategoria : Fantasy</p>
-    <section class="book-section">
-        <?php
-        foreach ($books as $book):?>
-        <div>
-            <img src="public/uploads/<?=$book->getImage(); ?>">
-            <div>
-                <h2><?=$book->getTitle();?></h2>
-                <p><?=$book->getDescription();?></p>
-                <button>Rezerwuj</button>
-            </div>
+
+<div class="container">
+    <div class = "profile">
+        <div class="avatar">
+        <p>Profil</p>
+        <img src="public/img/user.svg">
         </div>
-        <?php endforeach; ?>
-    </section>
-
-
-
-</main>
-
-
+        <div class = "options">
+        <button class="option">Dane osobowe</button>
+        <button class="option">Statystyki</button>
+        <button class="option">Zarządzaj książkami</button>
+        <button class="option">Zarządzaj kontem</button>
+        </div>
+    </div>
+    <div    class="user_data">
+        <p>Dane osobowe</p>
+        <div    class = data>
+            <p>Imię:Jan</p>
+            <p>Nazwisko:Kowalski</p>
+            <p>Nr tel: 123456789</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>

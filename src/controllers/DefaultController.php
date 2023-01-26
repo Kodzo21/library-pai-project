@@ -7,7 +7,5 @@ class DefaultController extends AppController {
         $this->render('login');
     }
 
-    public function books(){
-        $this->render('books');
-    }
+
 }
