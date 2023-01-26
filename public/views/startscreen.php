@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Library</title>
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
-
 </head>
 <body>
 <header>

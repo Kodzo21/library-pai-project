@@ -32,6 +32,35 @@ class BookController extends AppController
         return $this->render('add_book',['messages'=>$this->messages]);
     }
 
+    public function books(){
+        $books = $this->bookRepository->getBooks();
+        $this->render('books',['books' => $books]);
+    }
+
+
+    public function search(){
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+        if ($contentType ==="application/json"){
+            $content = trim(file_get_contents("php://input"));
+            $decoded  = json_decode($content,true);
+            header('Content-type: application/json');
+            http_response_code(200);
+            echo json_encode($this->bookRepository->getBooksByTitle($decoded['search']));
+        }
+
+    }
+
+    public function like(int $id){
+        $this->bookRepository->like($id);
+        http_response_code(200);
+    }
+
+    public function dislike(int $id){
+        $this->bookRepository->dislike($id);
+        http_response_code(200);
+    }
+
+
     private function validate(array $file):bool
     {
         if ($file['size']>self::MAX_FILE_SIZE){
@@ -44,11 +73,5 @@ class BookController extends AppController
         }
         return true;
     }
-
-    public function books(){
-        $books = $this->bookRepository->getBooks();
-        $this->render('books',['books' => $books]);
-    }
-
 
 }

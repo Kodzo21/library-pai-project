@@ -5,6 +5,8 @@
     <title>Library</title>
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/css/books.css">
+    <script src="https://kit.fontawesome.com/302c390f8c.js" crossorigin="anonymous"></script>
+    <script type = "text/javascript" src="./public/js/search.js" defer="defer"></script>
 </head>
 <body>
 <header>
@@ -26,9 +28,7 @@
             </ul>
         </div>
         <div class="search-bar">
-            <form>
-                <input type="text" placeholder="search books">
-            </form>
+                <input id="bar" type="text" placeholder="search books">
         </div>
         </li>
         </ul>
@@ -42,9 +42,13 @@
         foreach ($books as $book):?>
         <div>
             <img src="public/uploads/<?=$book->getImage(); ?>">
-            <div>
+            <div id="<?= $book->getID();?>">
                 <h2><?=$book->getTitle();?></h2>
                 <p><?=$book->getDescription();?></p>
+                <div class="social-section">
+                    <i class="fa-regular fa-heart"></i><?= $book->getLike();?>
+                    <i class="fa-solid fa-heart-crack"></i><?=$book->getDislike();?>
+                </div>
                 <button>Rezerwuj</button>
             </div>
         </div>
@@ -59,3 +63,18 @@
 </div>
 </body>
 </html>
+
+<template id="book_template">
+    <div>
+        <img src=""">
+        <div>
+            <h2>title</h2>
+            <p>description</p>
+            <div class="social-section">
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart-crack"></i>
+            </div>
+            <button>Rezerwuj</button>
+        </div>
+    </div>
+</template>
