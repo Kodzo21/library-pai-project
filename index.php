@@ -1,3 +1,17 @@
 <?php
 
-echo 'Hi there';
+require 'Routing.php';
+
+$path=trim($_SERVER['REQUEST_URI'],'/');
+$path=parse_url($path,PHP_URL_PATH);
+
+Routing::get('','DefaultController');
+Routing::get('books','BookController');
+Routing::get('like','BookController');
+Routing::get('dislike','BookController');
+Routing::post('login','SecurityController');
+Routing::post('register','SecurityController');
+Routing::post('addBook','BookController');
+Routing::post('search','BookController');
+
+Routing::run($path);
