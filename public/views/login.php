@@ -6,33 +6,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <ul>
-                <li>
-                    <a href="#" class="nav-button">Strona Główna</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Kategorie</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Najpopularniejsze</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Nowości</a>
-                </li>
-            </ul>
-        </div>
-        <div class="search-bar">
-            <form>
-                <input type="text" placeholder="search books">
-            </form>
-        </div>
-        </li>
-        </ul>
-    </nav>
-</header>
+
 <div class="container">
     <div class="logo">
         <img class="image" src="public/img/logo.svg">

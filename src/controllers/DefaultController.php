@@ -4,7 +4,7 @@ class DefaultController extends AppController {
 
 
     public function index(){
-        $this->render('login');
+        $this->render('startscreen');
     }
 
 

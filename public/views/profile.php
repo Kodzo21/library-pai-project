@@ -4,35 +4,11 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <script src="https://kit.fontawesome.com/302c390f8c.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <ul>
-                <li>
-                    <a href="#" class="nav-button">Strona Główna</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Kategorie</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Najpopularniejsze</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Nowości</a>
-                </li>
-            </ul>
-        </div>
-        <div class="search-bar">
-            <form>
-                <input type="text" placeholder="search books">
-            </form>
-        </div>
-        </li>
-        </ul>
-    </nav>
-</header>
+<?php include 'navbar.php'?>
 
 <div class="container">
     <div class = "profile">
@@ -50,9 +26,14 @@
     <div    class="user_data">
         <p>Dane osobowe</p>
         <div    class = data>
-            <p>Imię:Jan</p>
-            <p>Nazwisko:Kowalski</p>
-            <p>Nr tel: 123456789</p>
+            <p>Imię:<?= $user->getName() ?></p>
+            <p>Nazwisko:<?= $user->getSurname() ?></p>
+            <p>Nr tel: <?php
+                $phone = $user->getPhone();
+                if(isset($phone)) {
+                    echo $user->getPhone();
+                }
+                else echo "brak" ?></p>
         </div>
     </div>
 </div>

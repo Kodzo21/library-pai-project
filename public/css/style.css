@@ -45,7 +45,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 70%;
-
+    padding: 1em;
     background: rgba(250, 255, 0, 0.17);
     mix-blend-mode: normal;
     border-radius: 40px;
@@ -77,10 +77,71 @@ body {
     margin: 1em;
     width: 50%;
     border-radius: 20px;
-    height: 5%;
 }
 
-@media only screen and (max-device-width: 420px) {
+.sidebar{
+    display: none;
+}
+.menu-open{
+    display: none;
+}
+@media only screen and (max-device-width: 1025px){
+    .sidebar{
+        display: block;
+        height:100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+
+    .sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidebar .close-button  {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    .menu-open {
+        display: block;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+
+    }
+
+    .menu-open:hover {
+        background-color: #444;
+    }
+    .navbar-left{
+        display: none;
+    }
+
+}
+
+
+@media only screen and (max-device-width: 425px) {
     .container {
         flex-direction: column;
     }
@@ -110,7 +171,7 @@ body {
     padding: 1em;
 }
 .navbar-left{
-    width: 50%;
+    width: 60%;
 }
 
 .navbar-left ul {
@@ -139,23 +200,29 @@ body {
 
 .search-bar {
     display: flex;
-    width: 30%;
+    width: 40%;
     justify-content: center;
+
 }
 
-.search-bar>input{
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+#bar{
     box-shadow: 0px 3px 6px #00000029;
     border: 1px solid #707070;
     border-radius: 10px;
     text-align: center;
     letter-spacing: 0.72px;
     color: #A8A8A8;
-    padding: 1em;
-    margin-right: 5em;
     box-sizing: border-box;
     width: 40%;
+    background: #FFFFFF url("../img/search.svg") no-repeat 1em ;
+    background-size: 2em;
+    padding: 1em;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
 
+#bar:focus {
+    width: 100%;
 }
 
 .menu-button{
@@ -285,4 +352,46 @@ body {
     border-radius: 1em;
     box-shadow: 0 0 0.2em red;
     outline: none;
+}
+
+.social-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.heart-button{
+    border: none;
+    background: transparent;
+    color:cornflowerblue;
+    display: flex;
+    flex-direction: row;
+}
+.broken-heart-button{
+    border: none;
+    background: transparent;
+    color:cornflowerblue;
+    display: flex;
+    flex-direction: row;
+}
+
+.user{
+    background: transparent;
+    color:white;
+    padding: 1em;
+    border: none;
+}
+
+.profile-buttons>form>button{
+    background:transparent;
+    color:white;
+    padding: 1em;
+    border: none;
+}
+
+.profile-buttons{
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

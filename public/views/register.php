@@ -7,39 +7,13 @@
     <script defer="defer" type="text/javascript" src="./public/js/script.js" ></script>
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <ul>
-                <li>
-                    <a href="#" class="nav-button">Strona Główna</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Kategorie</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Najpopularniejsze</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-button">Nowości</a>
-                </li>
-            </ul>
-        </div>
-        <div class="search-bar">
-            <form>
-                <input type="text" placeholder="search books">
-            </form>
-        </div>
-        </li>
-        </ul>
-    </nav>
-</header>
+
 <div class="container">
     <div class="logo">
         <img class="image" src="public/img/logo.svg">
     </div>
     <div class="login-container">
-        <form class="login-form" action="login" method= "post">
+        <form class="login-form" action="register" method= "post">
             ZAREJESTRUJ
             <div class="message">
                 <?php if (isset($messages)){
