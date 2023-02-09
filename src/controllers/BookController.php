@@ -23,55 +23,109 @@ class BookController extends AppController
 
     public function addBook()
     {
-        if ($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
-            move_uploaded_file($_FILES['file']['tmp_name'],
-                dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['file']['name']);
+        session_start();
+        if ($this->checkIfLogged()){
+                if ($_SESSION['role'] === 'admin') {
+                    if ($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
+                        move_uploaded_file($_FILES['file']['tmp_name'],
+                            dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['file']['name']);
 
-            $book = new Book($_POST['title'], $_POST['isbn'], $_POST['free_books_number'], $_POST['description'], $_FILES['file']['name']);
-            $this->bookRepository->addBook($book);
-            return $this->render('books', ['messages' => $this->messages, 'books' => $this->bookRepository->getBooks()]);
-        }
-        return $this->render('add_book', ['messages' => $this->messages]);
+                        $book = new Book($_POST['title'], $_POST['isbn'], $_POST['free_books_number'], $_POST['description'], $_FILES['file']['name']);
+                        $this->bookRepository->addBook($book);
+                        return $this->render('books', ['messages' => $this->messages, 'books' => $this->bookRepository->getBooks()]);
+                    }
+                    return $this->render('add_book', ['messages' => $this->messages]);
+                }
+                return $this->books('');
+            }
+        $this->render('login', ['messages' => ['musisz byc zalogowany']]);
+
     }
 
-    public function books()
+    public function books($category)
     {
         session_start();
-        if (isset($_SESSION['id'])) {
+        if ($this->checkIfLogged()){
 
-            if ($this->sessionRepository->getSession($_SESSION['id'])) {
-                $books = $this->bookRepository->getBooks();
-                $this->render('books', ['books' => $books]);
-            }
+                if (!$category) {
+
+                    $books = $this->bookRepository->getBooks();
+                    array_push($books, "");
+                    $this->render('books', ['books' => $books]);
+
+                } else if ($category === "popular") {
+                    $books = $this->bookRepository->getBooks();
+                    $books = $this->sortByPopularity($books);
+                    array_push($books, "Najpopularniejsze: ");
+                    $this->render('books', ['books' => $books]);
+                } else {
+                    $category = strtolower($category);
+                    $books = $this->bookRepository->getBooksByCategory($category);
+                    $category = ucfirst($category);
+                    if (!empty($books))
+                        array_push($books, "Kategoria: " . $category);
+                    else $books = ["Nie ma takiej kategorii"];
+                    $this->render('books', ['books' => $books]);
+                }
+
         } else $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
 
     public function search()
     {
-        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-        if ($contentType === "application/json") {
-            $content = trim(file_get_contents("php://input"));
-            $decoded = json_decode($content, true);
-            header('Content-type: application/json');
-            http_response_code(200);
-            echo json_encode($this->bookRepository->getBooksByTitle($decoded['search']));
-        }
-
+        if ($this->checkIfLogged()) {
+            $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+            if ($contentType === "application/json") {
+                $content = trim(file_get_contents("php://input"));
+                $decoded = json_decode($content, true);
+                header('Content-type: application/json');
+                http_response_code(200);
+                echo json_encode($this->bookRepository->getBooksByTitle($decoded['search']));
+            }
+        }else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
     public function like(int $id)
     {
-        $this->bookRepository->like($id);
-        http_response_code(200);
+        if ($this->checkIfLogged()) {
+            $this->bookRepository->like($id);
+            http_response_code(200);
+        }else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
     public function dislike(int $id)
     {
-        $this->bookRepository->dislike($id);
-        http_response_code(200);
+        if ($this->checkIfLogged()) {
+            $this->bookRepository->dislike($id);
+            http_response_code(200);
+        }else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
+    public function reserve()
+    {
+        if ($this->checkIfLogged()) {
+            session_start();
+            $session = $this->sessionRepository->getSession($_SESSION['id']);
+            $id = $session->getUserId();
+            $book_id = $_POST['book_id'];
+            $this->bookRepository->reserveBook($id, $book_id);
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/books");
+        } else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
+    }
+
+    public function returnBook(int $bookID)
+    {
+        if ($this->checkIfLogged()) {
+            session_start();
+            $session = $this->sessionRepository->getSession($_SESSION['id']);
+            $userID = $session->getUserId();
+            $this->bookRepository->returnBook($userID, $bookID);
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/profile");
+        } else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
+    }
 
     private function validate(array $file): bool
     {
@@ -87,19 +141,22 @@ class BookController extends AppController
     }
 
 
-    private function renderIfLogged($messages)
+    private function sortByPopularity($objects)
     {
-        if (session_status() == PHP_SESSION_ACTIVE) {
-            $session_id = session_id();
-            // Check if the session ID exists in the database
-            $result = $this->sessionRepository->getSession($session_id);
-            if ($result != null) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            // The session has not started
-        }
+        usort($objects, function ($a, $b) {
+            return ($b->getLike() - $b->getDislike()) - ($a->getLike() - $a->getDislike());
+        });
+        return $objects;
     }
+
+    private function checkIfLogged(): bool
+    {
+        session_start();
+        if (isset($_SESSION['id']))
+            if ($this->sessionRepository->getSession($_SESSION['id']))
+                return true;
+
+        return false;
+    }
+
 }

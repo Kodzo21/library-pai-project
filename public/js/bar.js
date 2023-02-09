@@ -2,7 +2,7 @@ const sidebar = document.getElementById("sidebar");
 const closeButton = document.getElementById("close");
 const openButton = document.querySelector(".menu-open");
 function openNav() {
-    sidebar.style.width = "25%";
+    sidebar.style.width = "40%";
 }
 
 function closeNav() {

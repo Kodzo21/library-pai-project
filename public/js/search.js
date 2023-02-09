@@ -18,22 +18,22 @@ function createBook(book) {
     const dislike = clone.querySelector(".dislike");
     dislike.innerHTML = book.dislike;
     bookContainer.appendChild(clone);
-    //reload buttons
+}
+
+function loadBooks(books) {
+    books.forEach(book => {
+        createBook(book);
+    });
+    reloadButtons();
+}
+
+function reloadButtons(){
     const script = document.getElementById('stat');
-    console.log(script);
     const parent = script.parentNode;
     parent.removeChild(script);
     const newScript = document.createElement('script');
     newScript.src = "public/js/stats.js";
     document.head.appendChild(newScript);
-
-}
-
-function loadBooks(books) {
-    books.forEach(book => {
-        console.log(book);
-        createBook(book);
-    })
 }
 
 search.addEventListener("keyup", function (event) {

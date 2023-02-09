@@ -1,19 +1,26 @@
 <header>
     <nav class="navbar">
-        <button class ="menu-open"><i class="fa-solid fa-bars"></i></button>
-        <div   class = "sidebar" id="sidebar">
+        <button class="menu-open"><i class="fa-solid fa-bars"></i></button>
+        <div class="sidebar" id="sidebar">
             <ul>
                 <li>
-                    <a href = "#" class = "close-button" id="close">x</a>
+                    <a href="#" class="close-button" id="close">x</a>
                 </li>
                 <li>
                     <a href="" class="nav-button">Strona Główna</a>
                 </li>
                 <li>
-                    <a href="books" class="nav-button">Kategorie</a>
+                    <div class="dropdown">
+                        <a href="books" class="nav-button" id="options">Kategorie</a>
+                        <div class="category-list">
+                            <a href="books/fantasy">Fantasy</a>
+                            <a href="#">Option 2</a>
+                            <a href="#">Option 3</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <a href="books" class="nav-button">Najpopularniejsze</a>
+                    <a href="books/popular" class="nav-button">Najpopularniejsze</a>
                 </li>
                 <li>
                     <a href="books" class="nav-button">Nowości</a>
@@ -26,10 +33,17 @@
                     <a href="" class="nav-button">Strona Główna</a>
                 </li>
                 <li>
-                    <a href="books" class="nav-button">Kategorie</a>
+                    <div class="dropdown">
+                        <a href="books" class="nav-button" id="options">Kategorie</a>
+                        <div class="category-list">
+                            <a href="books/fantasy">Fantasy</a>
+                            <a href="#">Option 2</a>
+                            <a href="#">Option 3</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <a href="books" class="nav-button">Najpopularniejsze</a>
+                    <a href="books/popular" class="nav-button">Najpopularniejsze</a>
                 </li>
                 <li>
                     <a href="books" class="nav-button">Nowości</a>
@@ -43,7 +57,8 @@
             <form action="logout" method="post">
                 <button type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
             </form>
-            <button class="user" type="button"><i class="fa-regular fa-user"></i></button>
+            <a href = "profile" class = "user"><i class="fa-regular fa-user"></i></a>
+            <?php if($_SESSION['role']==="admin") {echo '<a href = "addBook" class = "user"><i class="fa-solid fa-upload"></i></a>';}  ?>
         </div>
 
     </nav>

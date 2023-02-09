@@ -20,6 +20,7 @@ class Routing
 
     public static function run($url)
     {
+
         $urlParts = explode("/", $url);
         $action = $urlParts[0];
 
@@ -32,7 +33,6 @@ class Routing
         $action = $action ?: 'index';
 
         $id = $urlParts[1] ?? '';
-
 
         $object->$action($id);
     }

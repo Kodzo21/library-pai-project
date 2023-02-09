@@ -1,37 +1,67 @@
-section {
+.book-section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2em;
     padding: 2em;
-    overflow: auto;
     margin:2em;
+    justify-items: center;
 }
-main{
-    height: 100vh;
+
+
+
+body{
+    overflow-y: scroll;
 }
+body::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    background-color: #0ae;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%,
+    color-stop(.5, rgba(255, 255, 255, .2)),
+    color-stop(.5, transparent), to(transparent));
+}
+
+
 
 .book-section>div{
     border: 1px solid gray;
-    border-radius: 1em 1em 0 0;
+    border-radius: 1em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: lightgrey;
+    align-items: center;
+    width: 100%;
 }
 
 .book-section>div>div{
-    height: 50%;
-    margin: 1em;
+    height: 60%;
     color: #2699FB;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
 }
 .book-section>div>img {
     height: 100%;
-    width: 50%;
+    width: 40%;
     object-fit: cover;
     border-radius: 1em 1em 0 0;
+}
+
+.book-section div div form{
+    width: 100%;
+    height: 2em;
 }
 
 #category{
@@ -46,6 +76,7 @@ main{
 .book-form>form{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 .book-form>form>input,textarea{
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -60,5 +91,29 @@ main{
 
 #upload{
     margin:2em;
+
+}
+
+.reserve-button{
+    background: lightcoral;
+    color:white;
+    border: none;
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+@media only screen and (max-device-width: 768px){
+    .book-section{
+        grid-template-columns: repeat(2,1fr);
+        grid-gap:1em;
+        padding:1em;
+        margin:1em;
+    }
+
+    .book-section>div>img {
+        width: 70%;
+    }
 
 }
