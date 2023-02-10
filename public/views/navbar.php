@@ -4,18 +4,18 @@
         <div class="sidebar" id="sidebar">
             <ul>
                 <li>
-                    <a href="#" class="close-button" id="close">x</a>
+                    <button class="close-button" id="close">x</button>
                 </li>
                 <li>
-                    <a href="" class="nav-button">Strona Główna</a>
+                    <a href="books" class="nav-button">Strona Główna</a>
                 </li>
                 <li>
                     <div class="dropdown">
-                        <a href="books" class="nav-button" id="options">Kategorie</a>
+                        <a href="books" class="nav-button" id="options1">Kategorie</a>
                         <div class="category-list">
                             <a href="books/fantasy">Fantasy</a>
-                            <a href="#">Option 2</a>
-                            <a href="#">Option 3</a>
+                            <a href="books/science-fiction">Science fiction</a>
+                            <a href="books/kryminal">Kryminał</a>
                         </div>
                     </div>
                 </li>
@@ -30,15 +30,15 @@
         <div class="navbar-left">
             <ul>
                 <li>
-                    <a href="" class="nav-button">Strona Główna</a>
+                    <a href="books" class="nav-button">Strona Główna</a>
                 </li>
                 <li>
                     <div class="dropdown">
                         <a href="books" class="nav-button" id="options">Kategorie</a>
                         <div class="category-list">
                             <a href="books/fantasy">Fantasy</a>
-                            <a href="#">Option 2</a>
-                            <a href="#">Option 3</a>
+                            <a href="books/science-fiction">Science fiction</a>
+                            <a href="books/kryminal">Kryminał</a>
                         </div>
                     </div>
                 </li>

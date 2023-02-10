@@ -15,7 +15,7 @@
         <main>
             <h1 id="upload">Upload</h1>
             <section class="book-form">
-                <form action="addBook" method="post" enctype="multipart/form-data">
+                <form action="addBook" method="POST" enctype="multipart/form-data">
                     <div class="messages">
                         <?php if (isset($messages)) {
                             foreach ($messages as $message) {
@@ -27,6 +27,18 @@
                     <input name="title" type="text" placeholder="title">
                     <textarea name="description" rows="5" placeholder="description"></textarea>
                     <input name="isbn" type="text" placeholder="isbn">
+                    <select class="sel" name = "category">
+                        <?php
+                        foreach ($categories as $category):?>
+                            <option value="<?= $category->getId();?>"><?= $category->getCategory(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <select class="sel" name = "author">
+                        <?php
+                        foreach ($authors as $author):?>
+                        <option value="<?= $author->getId();?>"><?= $author->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
                     <input name="free_books_number" type="number" placeholder="Books number">
                     <input type="file" name="file">
                     <button class="btn-login" type="submit">Send</button>

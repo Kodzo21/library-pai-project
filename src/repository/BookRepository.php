@@ -2,6 +2,8 @@
 
 require_once 'Repository.php';
 require_once __DIR__.'/../models/Book.php';
+require_once __DIR__.'/../models/Author.php';
+require_once __DIR__.'/../models/Category.php';
 
 
 class BookRepository extends Repository
@@ -21,23 +23,38 @@ class BookRepository extends Repository
             //throw exception zamiast return null
         }
 
-        return new Book($book['title'], $book['isbn'], $book['free_books_number'], $book['description'], $book['image']);
+        return new Book($book['id'],$book['title'], $book['isbn'], $book['free_books_number'], $book['description'], $book['image'],0,0);
     }
 
-    public function addBook(Book $book): void
+    public function addBook(Book $book,$catID,$authorID): void
     {
-        $statement = $this->database->connect()->prepare(
-            'Insert into books (title, isbn, category_id,free_books_number, description, image) values (?,?,?,?,?)'
-        );
-        $category_id = 1;
-        $statement->execute([
-            $book->getTitle(),
-            $book->getIsbn(),
-            $category_id,
-            $book->getFreeBooksNumber(),
-            $book->getDescription(),
-            $book->getImage()
-        ]);
+        $db = $this->database->connect();
+        try {
+            $db->beginTransaction();
+            $statement = $db->prepare(
+                'Insert into books (title, isbn, category_id,free_books_number, description, image) values (?,?,?,?,?,?)'
+            );
+            $statement->execute([
+                $book->getTitle(),
+                $book->getIsbn(),
+                $catID,
+                $book->getFreeBooksNumber(),
+                $book->getDescription(),
+                $book->getImage()
+            ]);
+
+            $bookID = $db->lastInsertId();
+
+            $statement = $db->prepare(
+                'Insert into book_author (book_id, author_id) values (?,?)'
+            );
+            $statement->execute([
+                $bookID, $authorID
+            ]);
+        }catch (Exception $e){
+            $db->rollBack();
+            die($e->getMessage());
+        }
     }
 
     public function getBooks(): array
@@ -160,5 +177,43 @@ class BookRepository extends Repository
         }catch (Exception $e ){
             $db->rollBack();
         }
+    }
+
+    public function getAuthors()
+    {
+        $statement = $this->database->connect()->prepare(
+            '
+            Select id,author from authors;
+            '
+        );
+
+        $statement->execute();
+        $authors = $statement->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($authors as $author) {
+            $result[] = new Author(
+                $author['id'],
+                $author['author']
+            );
+        }
+        return $result;
+    }
+
+    public function getCategories()
+    {
+        $statement = $this->database->connect()->prepare(
+            '
+            Select id,category_name from categories;
+            '
+        );
+
+        $statement->execute();
+        $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($categories as $category) {
+            $result[] = new Category(
+                $category['id'],
+                $category['category_name']
+            );
+        }
+        return $result;
     }
 }

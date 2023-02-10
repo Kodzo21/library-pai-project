@@ -21,7 +21,7 @@
                 <img src="public/img/user.svg">
             </div>
             <div class="options">
-                <button class="option">Dane osobowe</button>
+                <a class="option" href="profile">Dane osobowe</a>
                 <button class="option">Statystyki</button>
                 <button id="manage" class="option">Zarządzaj książkami</button>
                 <button class="option">Zarządzaj kontem</button>

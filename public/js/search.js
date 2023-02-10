@@ -17,6 +17,9 @@ function createBook(book) {
     like.innerHTML = book.like;
     const dislike = clone.querySelector(".dislike");
     dislike.innerHTML = book.dislike;
+    const btn = clone.querySelector(".setid");
+    btn.value = book.id;
+
     bookContainer.appendChild(clone);
 }
 

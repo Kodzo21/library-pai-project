@@ -4,7 +4,6 @@ require 'Routing.php';
 
 $path=trim($_SERVER['REQUEST_URI'],'/');
 $path=parse_url($path,PHP_URL_PATH);
-file_put_contents('path',$path."\n",FILE_APPEND);
 
 Routing::get('','DefaultController');
 Routing::get('books','BookController');

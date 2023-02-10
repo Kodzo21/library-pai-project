@@ -2,6 +2,7 @@
 
 require_once 'AppController.php';
 require_once __DIR__ . '/../models/Book.php';
+require_once __DIR__ . '/../models/Author.php';
 require_once __DIR__ . '/../repository/BookRepository.php';
 
 class BookController extends AppController
@@ -24,20 +25,20 @@ class BookController extends AppController
     public function addBook()
     {
         session_start();
-        if ($this->checkIfLogged()){
-                if ($_SESSION['role'] === 'admin') {
-                    if ($this->isPost() && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
-                        move_uploaded_file($_FILES['file']['tmp_name'],
-                            dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['file']['name']);
+        if ($this->checkIfLogged()) {
+            if ($_SESSION['role'] === 'admin') {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && is_uploaded_file($_FILES['file']['tmp_name']) && $this->validate($_FILES['file'])) {
+                    move_uploaded_file($_FILES['file']['tmp_name'],
+                        dirname(__DIR__) . self::UPLOAD_DIRECTORY . $_FILES['file']['name']);
 
-                        $book = new Book($_POST['title'], $_POST['isbn'], $_POST['free_books_number'], $_POST['description'], $_FILES['file']['name']);
-                        $this->bookRepository->addBook($book);
-                        return $this->render('books', ['messages' => $this->messages, 'books' => $this->bookRepository->getBooks()]);
-                    }
-                    return $this->render('add_book', ['messages' => $this->messages]);
+                    $book = new Book(1, $_POST['title'], $_POST['isbn'], $_POST['free_books_number'], $_POST['description'], $_FILES['file']['name'],0,0);
+                    $this->bookRepository->addBook($book, $_POST['category'], $_POST['author']);
+                    return $this->books('');
                 }
-                return $this->books('');
+                return $this->render('add_book', ['messages' => $this->messages,'authors' => $this->bookRepository->getAuthors(), 'categories' => $this->bookRepository->getCategories()]);
             }
+            return $this->books('');
+        }
         $this->render('login', ['messages' => ['musisz byc zalogowany']]);
 
     }
@@ -45,28 +46,28 @@ class BookController extends AppController
     public function books($category)
     {
         session_start();
-        if ($this->checkIfLogged()){
+        if ($this->checkIfLogged()) {
 
-                if (!$category) {
+            if (!$category) {
 
-                    $books = $this->bookRepository->getBooks();
-                    array_push($books, "");
-                    $this->render('books', ['books' => $books]);
+                $books = $this->bookRepository->getBooks();
+                array_push($books, "");
+                $this->render('books', ['books' => $books]);
 
-                } else if ($category === "popular") {
-                    $books = $this->bookRepository->getBooks();
-                    $books = $this->sortByPopularity($books);
-                    array_push($books, "Najpopularniejsze: ");
-                    $this->render('books', ['books' => $books]);
-                } else {
-                    $category = strtolower($category);
-                    $books = $this->bookRepository->getBooksByCategory($category);
-                    $category = ucfirst($category);
-                    if (!empty($books))
-                        array_push($books, "Kategoria: " . $category);
-                    else $books = ["Nie ma takiej kategorii"];
-                    $this->render('books', ['books' => $books]);
-                }
+            } else if ($category === "popular") {
+                $books = $this->bookRepository->getBooks();
+                $books = $this->sortByPopularity($books);
+                array_push($books, "Najpopularniejsze: ");
+                $this->render('books', ['books' => $books]);
+            } else {
+                $category = strtolower($category);
+                $books = $this->bookRepository->getBooksByCategory($category);
+                $category = ucfirst($category);
+                if (!empty($books))
+                    array_push($books, "Kategoria: " . $category);
+                else $books = ["Nie ma takiej kategorii"];
+                $this->render('books', ['books' => $books]);
+            }
 
         } else $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
@@ -83,7 +84,7 @@ class BookController extends AppController
                 http_response_code(200);
                 echo json_encode($this->bookRepository->getBooksByTitle($decoded['search']));
             }
-        }else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
+        } else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
     public function like(int $id)
@@ -91,7 +92,7 @@ class BookController extends AppController
         if ($this->checkIfLogged()) {
             $this->bookRepository->like($id);
             http_response_code(200);
-        }else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
+        } else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
     public function dislike(int $id)
@@ -99,7 +100,7 @@ class BookController extends AppController
         if ($this->checkIfLogged()) {
             $this->bookRepository->dislike($id);
             http_response_code(200);
-        }else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
+        } else return $this->render('login', ['messages' => ['musisz byc zalogowany']]);
     }
 
     public function reserve()

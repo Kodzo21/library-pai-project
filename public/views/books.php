@@ -35,7 +35,7 @@
                             <form action="reserve" method="post">
                                 <input type="hidden" name="book_id" value="<?php $id = $book->getID();
                                 echo $id ?>">
-                                <input class="reserve-button" type="submit" value="Reserve Book">
+                                <input class="reserve-button" type="submit" value="Zarezerwuj">
                             </form>
                         </div>
                     </div>
@@ -62,7 +62,10 @@
                 <button class="broken-heart-button"><p class="dislike"> dislike </p><i
                             class="fa-solid fa-heart-crack"></i></button>
             </div>
-            <button>Rezerwuj</button>
+            <form action="reserve" method="post">
+                <input class="setid" type="hidden" name="book_id" value="">
+                <input class="reserve-button" type="submit" value="Zarezerwuj">
+            </form>
         </div>
     </div>
 </template>
