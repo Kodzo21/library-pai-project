@@ -9,7 +9,7 @@ class AppController{
     }
 
     protected function isPost():bool{
-        return $this->request==='POST';
+        return $this->request==="POST";
     }
     protected function isGet():bool{
         return $this->request==='GET';

@@ -11,16 +11,6 @@ class Book
     private int $like;
     private int $dislike;
 
-    /**
-     * @param int $id
-     * @param string $title
-     * @param string $isbn
-     * @param int $freeBooksNumber
-     * @param string $description
-     * @param string $image
-     * @param int $like
-     * @param int $dislike
-     */
     public function __construct(int $id, string $title, string $isbn, int $freeBooksNumber, string $description, string $image, int $like=0, int $dislike=0)
     {
         $this->id = $id;

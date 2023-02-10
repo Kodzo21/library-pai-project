@@ -1,0 +1,66 @@
+.menu-button{
+    width: 50%;
+    display: flex;
+    text-decoration: none;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #A8C6FC;
+    border-radius: 20px;
+    color: black;
+    margin: 2em;
+    line-height: 3.5em;
+}
+.menu-button:hover{
+    background: #b2c2e7;
+}
+
+.prop{
+    background: #FFFFFF;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 1em;
+    padding: 1em;
+    justify-content: center;
+}
+.prop>div{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: black;
+}
+
+.prop>div>img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.books{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color:black;
+    margin: 3em;
+    padding: 2em;
+}
+
+.books>p{
+    display: flex;
+    color:white;
+    flex-wrap:nowrap;
+    justify-content: center;
+}
+
+@media only screen and (max-device-width: 768px){
+    .container{
+        height: auto;
+    }
+    .background{
+        overflow-y: scroll;
+    }
+
+}

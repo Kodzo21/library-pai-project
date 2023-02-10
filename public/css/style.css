@@ -7,8 +7,18 @@
 
 body {
     margin: 0;
-    overflow: hidden;
+
+}
+
+.background{
     background: linear-gradient(247.1deg, #2492F3 0%, #826EC6 100%);
+    position: fixed;
+    z-index: -100;
+    top: 0;
+    height: 110%;
+    width: 100%;
+    left: 0;
+
 }
 
 .container {
@@ -23,11 +33,12 @@ body {
 
 .logo {
     width: 50%;
-    height: 50vh;
+    height: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .image{
@@ -35,7 +46,7 @@ body {
 }
 
 .login-container {
-    width: 70%;
+    width: 50%;
 
 }
 
@@ -45,7 +56,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 70%;
-
+    padding: 1em;
     background: rgba(250, 255, 0, 0.17);
     mix-blend-mode: normal;
     border-radius: 40px;
@@ -77,30 +88,26 @@ body {
     margin: 1em;
     width: 50%;
     border-radius: 20px;
-    height: 5%;
 }
 
-@media only screen and (max-device-width: 420px) {
-    .container {
-        flex-direction: column;
-    }
+.register-link{
+    text-decoration: none;
+    color: darkmagenta;
+}
 
-    * {
-        font-size: 36px;
-    }
 
-    .login-container, .logo {
-        width: 100%;
-    }
+.sidebar{
+    display: none;
+}
+.menu-open{
+    display: none;
+}
 
-    form {
-        margin: auto;
-    }
+.search-bar {
+    display: flex;
+    width: 40%;
+    justify-content: center;
 
-    img {
-        height: 14em;
-        margin: 2em;
-    }
 }
 
 .navbar {
@@ -110,7 +117,7 @@ body {
     padding: 1em;
 }
 .navbar-left{
-    width: 50%;
+    width: 60%;
 }
 
 .navbar-left ul {
@@ -137,137 +144,36 @@ body {
     white-space: nowrap;
 }
 
-.search-bar {
-    display: flex;
-    width: 30%;
-    justify-content: center;
-}
 
-.search-bar>input{
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+
+#bar{
     box-shadow: 0px 3px 6px #00000029;
     border: 1px solid #707070;
     border-radius: 10px;
     text-align: center;
     letter-spacing: 0.72px;
     color: #A8A8A8;
-    padding: 1em;
-    margin-right: 5em;
     box-sizing: border-box;
-    width: 40%;
-
-}
-
-.menu-button{
     width: 50%;
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #A8C6FC;
-    border-radius: 20px;
-    color: black;
-    margin: 2em;
-    line-height: 3.5em;
-}
-.menu-button:hover{
-    background: #b2c2e7;
-}
-
-.prop{
-    background: #FFFFFF;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: row;
-    margin: 1em;
+    background: #FFFFFF url("../img/search.svg") no-repeat 1em ;
+    background-size: 2em;
     padding: 1em;
-    justify-content: center;
-}
-.prop>div{
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    color: black;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
 }
 
-
-
-
-.books{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height:50%;
-    justify-content: space-around;
-    color:black;
-    margin: 3em;
-    padding: 2em;
-}
-
-.books>p{
-    display: flex;
-    color:white;
-    flex-wrap:nowrap;
-    justify-content: center;
-}
-
-
-.base-container{
-
-}
-
-.profile{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    height: 100%;
-
-}
-
-.avatar>img{
-    width: 50%;
-}
-
-.avatar{
-    height: 50%;
+#bar:focus {
     width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    color: white;
-    font-size: 30px;
+}
 
-}
-.user_data{
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    color:white;
-    height: 50%;
-    padding: 1em;
-}
-.data{
-    background: white;
-    border-radius: 10px;
-    width: 80%;
-    height: 100%;
-    display: flex;
-    color: black;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
 .option{
     border:none;
     background: transparent;
     display: flex;
     color: white;
     font-size: 25px;
-
+    text-decoration: none;
+    cursor:pointer;
 }
 .options{
     display: flex;
@@ -285,4 +191,166 @@ body {
     border-radius: 1em;
     box-shadow: 0 0 0.2em red;
     outline: none;
+}
+
+.social-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.heart-button{
+    border: none;
+    background: transparent;
+    color:cornflowerblue;
+    display: flex;
+    flex-direction: row;
+}
+.broken-heart-button{
+    border: none;
+    background: transparent;
+    color:cornflowerblue;
+    display: flex;
+    flex-direction: row;
+}
+
+.user{
+    background: transparent;
+    color:white;
+    padding: 1em;
+    border: none;
+}
+
+.profile-buttons>form>button{
+    background:transparent;
+    color:white;
+    padding: 1em;
+    border: none;
+}
+
+.profile-buttons{
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.category-list{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.category-list >a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.category-list a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .category-list{
+    display: block;
+}
+
+
+
+@media only screen and (max-device-width: 768px){
+    .sidebar{
+        display: block;
+        height:100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgba(65, 123, 234, 0.5);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+    .sidebar ul{
+        list-style: none;
+        padding: 1em;
+    }
+
+    .sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidebar .close-button  {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    .menu-open {
+        display: block;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+
+    }
+
+    .menu-open:hover {
+        background-color: #444;
+    }
+    .navbar-left{
+        display: none;
+    }
+
+    .search-bar{
+        width: 70%;
+    }
+
+    #bar{
+        width: 80%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    * {
+        font-size: 36px;
+    }
+
+    .login-container, .logo {
+        width: 100%;
+    }
+    .login-container{
+        margin: 1em 1em 6em;
+    }
+    form {
+        margin: auto;
+    }
+
+    img {
+        height: 14em;
+        margin: 2em;
+    }
+
+    .container{
+        height: auto;
+    }
+    .background{
+        overflow-y: scroll;
+    }
 }
