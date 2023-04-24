@@ -1,7 +1,7 @@
 # Library
 
 ## Description
-The project allows for registration and log into the application where they are able to search for books and make a reservation. 
+The project allows users for registration and logging into the application where they are able to search for books and make a reservation. 
 User can also find information about borrowed books like reservation date or how much time is left to return the book.
 
 
